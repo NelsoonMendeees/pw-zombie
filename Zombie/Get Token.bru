@@ -1,0 +1,30 @@
+meta {
+  name: Get Token
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:3333/sessions
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "email": "admin@zombieplus.com",
+    "password": "pwd123"
+  }
+}
+
+vars:post-response {
+  : 
+}
+
+script:post-response {
+  bru.setEnvVar("token", res.getBody().token)
+}
+
+settings {
+  encodeUrl: true
+}

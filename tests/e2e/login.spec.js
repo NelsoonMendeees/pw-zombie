@@ -1,14 +1,10 @@
 import { test } from '../support'
-
-const payload = {
-  email: 'admin@zombieplus.com',
-  password: 'pwd123'
-}
+import payload from '../support/fixtures/admin.json'
 
 test('deve logar como administrador', async ({ page }) => {
   await page.login.visit()
   await page.login.submitLogin(payload)
-  await page.login.isLogged()
+  await page.login.isLogged(payload)
 })
 
 test('não deve logar quando o email é inválido', async ({ page }) => {

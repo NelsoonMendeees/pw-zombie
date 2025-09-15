@@ -1,8 +1,14 @@
 import { expect } from '@playwright/test'
 
-export class LoginPage {
+export class Login {
   constructor(page) {
     this.page = page
+  }
+
+  async do(payload) {
+    await this.visit()
+    await this.submitLogin(payload)
+    await this.isLogged(payload)
   }
 
   async visit() {
@@ -18,8 +24,8 @@ export class LoginPage {
     await this.page.getByRole('button', { name: 'Entrar' }).click()
   }
 
-  async isLogged() {
-    await this.page.waitForLoadState('networkidle')
-    await expect(this.page).toHaveURL(/.*admin/)
+  async isLogged(payload) {
+    const loggedUser = this.page.locator('.logged-user')
+    await expect(loggedUser).toHaveText(`Olá, ${payload.userName}`)
   }
 }

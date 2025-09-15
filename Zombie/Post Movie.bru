@@ -1,0 +1,28 @@
+meta {
+  name: Post Movie
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:3333/movies
+  body: multipartForm
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:multipart-form {
+  cover: @file(D:\workspace\person\pw-zombie\tests\support\fixtures\covers\movies\resident-evil.jpg)
+  title: Resident Evil: O Hospede Maldito
+  overview: Um vírus experimental escapa de um laboratório subterrâneo
+  company_id: 144e165c-3e12-4715-8caa-a62c170feb3c
+  release_year: 1970
+  featured: false
+}
+
+settings {
+  encodeUrl: true
+}

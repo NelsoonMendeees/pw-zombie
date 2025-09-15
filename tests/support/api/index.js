@@ -1,0 +1,106 @@
+import { expect } from '@playwright/test'
+const fs = require('fs')
+
+export class Api {
+  constructor(request) {
+    this.baseApi = 'http://localhost:3333'
+    this.request = request
+    this.token = undefined
+  }
+
+  async setToken() {
+    const response = await this.request.post(`${this.baseApi}/sessions`, {
+      data: {
+        email: 'admin@zombieplus.com',
+        password: 'pwd123'
+      }
+    })
+
+    expect(response.ok()).toBeTruthy()
+    const body = JSON.parse(await response.text())
+    this.token = `Bearer ${body.token}`
+  }
+
+  async postMovieCover(movie) {
+    const companyId = await this.getCompanyIdByName(movie.company)
+
+    const response = await this.request.post(`${this.baseApi}/movies`, {
+      headers: {
+        Authorization: this.token,
+        Accept: 'application/json, text/plain, */*'
+      },
+      multipart: {
+        cover: {
+          name: movie.cover, // Nome do arquivo que será enviado
+          mimeType: 'image/jpeg', // ou detecte dinamicamente se quiser
+          buffer: fs.readFileSync(`tests/support/fixtures/${movie.cover}`) // caminho local do arquivo
+        },
+        title: movie.title,
+        overview: movie.overview,
+        company_id: companyId,
+        release_year: movie.release_year,
+        featured: String(movie.featured)
+      }
+    })
+
+    expect(response.ok()).toBeTruthy()
+  }
+
+  async postMovie(movie) {
+    const companyId = await this.getCompanyIdByName(movie.company)
+
+    const response = await this.request.post(`${this.baseApi}/movies`, {
+      headers: {
+        Authorization: this.token,
+        ContentType: 'multipart/form-data',
+        Accept: 'application/json, text/plain, */*'
+      },
+      multipart: {
+        title: movie.title,
+        overview: movie.overview,
+        company_id: companyId,
+        release_year: movie.release_year,
+        featured: movie.featured
+      }
+    })
+
+    expect(response.ok()).toBeTruthy()
+  }
+
+  async getCompanyIdByName(company) {
+    const response = await this.request.get(`${this.baseApi}/companies`, {
+      headers: {
+        Authorization: this.token
+      },
+      params: {
+        name: company
+      }
+    })
+
+    expect(response.ok()).toBeTruthy()
+    const body = JSON.parse(await response.text())
+    return body.data[0].id
+  }
+
+  async postSerie(tvshow) {
+    const id = await this.getCompanyIdByName(tvshow.company)
+
+    const response = await this.request.post(`${this.baseApi}/tvshows`, {
+      headers: {
+        Authorization: this.token,
+        ContentType: 'multipart/form-data',
+        Accept: 'application/json, text/plain, */*'
+      },
+      multipart: {
+        title: tvshow.title,
+        overview: tvshow.overview,
+        company_id: id,
+        release_year: tvshow.release_year,
+        seasons: tvshow.season,
+        featured: tvshow.featured
+      }
+    })
+
+    expect(response.ok()).toBeTruthy()
+  }
+}

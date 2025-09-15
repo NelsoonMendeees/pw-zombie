@@ -7,10 +7,10 @@ const payload = {
 }
 
 test('deve cadastrar um lead na fila de espera', async ({ page }) => {
-  await page.landing.visit()
+  await page.leads.visit()
 
-  await page.landing.openLeadModal()
-  await page.landing.submitLeadForm(payload)
+  await page.leads.openLeadModal()
+  await page.leads.submitLeadForm(payload)
   await page.components.toastHaveText('Agradecemos por compartilhar seus dados conosco.')
 })
 
@@ -20,41 +20,41 @@ test('não deve cadastrar um lead quando o email já existe', async ({ page, req
   })
   expect(newLead.ok()).toBeTruthy()
 
-  await page.landing.visit()
+  await page.leads.visit()
 
-  await page.landing.openLeadModal()
-  await page.landing.submitLeadForm(payload)
+  await page.leads.openLeadModal()
+  await page.leads.submitLeadForm(payload)
   await page.components.toastHaveText('O endereço de e-mail fornecido já está registrado em nossa fila de espera.')
 })
 
 test('não deve cadastrar um lead com email inválido', async ({ page }) => {
-  await page.landing.visit()
+  await page.leads.visit()
 
-  await page.landing.openLeadModal()
-  await page.landing.submitLeadForm({ ...payload, email: 'nelson.qa.com' })
+  await page.leads.openLeadModal()
+  await page.leads.submitLeadForm({ ...payload, email: 'nelson.qa.com' })
   await page.components.alertHaveText('Email incorreto')
 })
 
 test('não deve cadastrar um lead quando o nome não é informado', async ({ page }) => {
-  await page.landing.visit()
+  await page.leads.visit()
 
-  await page.landing.openLeadModal()
-  await page.landing.submitLeadForm({ ...payload, name: '' })
+  await page.leads.openLeadModal()
+  await page.leads.submitLeadForm({ ...payload, name: '' })
   await page.components.alertHaveText('Campo obrigatório')
 })
 
 test('não deve cadastrar um lead quando o email não é informado', async ({ page }) => {
-  await page.landing.visit()
+  await page.leads.visit()
 
-  await page.landing.openLeadModal()
-  await page.landing.submitLeadForm({ ...payload, email: '' })
+  await page.leads.openLeadModal()
+  await page.leads.submitLeadForm({ ...payload, email: '' })
   await page.components.alertHaveText('Campo obrigatório')
 })
 
 test('não deve cadastrar um lead quando nenhum campo é informado', async ({ page }) => {
-  await page.landing.visit()
+  await page.leads.visit()
 
-  await page.landing.openLeadModal()
-  await page.landing.submitLeadForm({ ...payload, name: '', email: '' })
+  await page.leads.openLeadModal()
+  await page.leads.submitLeadForm({ ...payload, name: '', email: '' })
   await page.components.alertHaveText(['Campo obrigatório', 'Campo obrigatório'])
 })

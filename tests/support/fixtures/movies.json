@@ -13,7 +13,7 @@
     "company": "Sony Pictures",
     "release_year": 2002,
     "featured": false,
-    "cover": "/covers/movies/resident-evil.jpg"
+    "cover": "covers/movies/resident-evil.jpg"
   },
   "remove": {
     "title": "Extermínio",
@@ -21,7 +21,7 @@
     "company": "Universal Pictures",
     "release_year": 2002,
     "featured": false,
-    "cover": "/covers/movies/extermínio.png"
+    "cover": "covers/movies/extermínio.png"
   },
   "search": {
     "input": "zumbi",
@@ -33,7 +33,7 @@
         "company": "Sony Pictures",
         "release_year": 2009,
         "featured": false,
-        "cover": "/covers/movies/zumbilandia.png"
+        "cover": "covers/movies/zumbilandia.png"
       },
       {
         "title": "Invasão Zumbi",
@@ -41,7 +41,7 @@
         "company": "Paramount Pictures",
         "release_year": 2016,
         "featured": false,
-        "cover": "/covers/movies/invasao_zumbi.png"
+        "cover": "covers/movies/invasao_zumbi.png"
       }
     ]
   }
