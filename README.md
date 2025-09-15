@@ -19,17 +19,17 @@ Seguindo boas práticas como o **padrão Page Objects** e geração de dados din
 
 A estrutura segue uma organização modular para facilitar manutenção e escalabilidade:
 
-├── tests/
-│ ├── e2e/ # Especificações de testes (cenários)
-│ └── support/ # Recursos de suporte
-│   ├── fixtures/ # Massa de dados e mocks
-│   ├── pages/ # Page Objects (elementos e ações de páginas)
-│   ├── db.js # Conexão com banco de dados PostgreSQL
-│   └── index.js # Registro e exportação dos Page Objects
-│
-├── playwright.config.js # Configurações do Playwright
-├── package.json # Dependências e scripts
-└── README.md # Documentação do projeto
+>tests/
+>  - e2e/ # Especificações de testes (cenários)
+>  - support/
+>       * fixtures/ # Massa de dados e mocks
+>       * pages/ # Page Objects (elementos e ações de páginas)
+>       * db.js # Conexão com banco de dados PostgreSQL
+>       * index.js # Registro e exportação dos Page Objects
+>
+> playwright.config.js # Configurações do Playwright
+> package.json # Dependências e scripts
+> README.md # Documentação do projeto
 
 
 🔑 **Padrão Page Objects:**  
