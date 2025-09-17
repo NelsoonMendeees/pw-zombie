@@ -3,7 +3,7 @@ import { fakerPT_BR as faker } from '@faker-js/faker'
 
 const payload = {
   name: faker.person.fullName(),
-  email: faker.internet.email()
+  email: faker.internet.email().toLocaleLowerCase()
 }
 
 test('deve cadastrar um lead na fila de espera', async ({ page }) => {
@@ -11,7 +11,7 @@ test('deve cadastrar um lead na fila de espera', async ({ page }) => {
 
   await page.leads.openLeadModal()
   await page.leads.submitLeadForm(payload)
-  await page.components.toastHaveText('Agradecemos por compartilhar seus dados conosco.')
+  await page.components.popUpContainText('Agradecemos por compartilhar seus dados conosco.')
 })
 
 test('não deve cadastrar um lead quando o email já existe', async ({ page, request }) => {
@@ -24,7 +24,7 @@ test('não deve cadastrar um lead quando o email já existe', async ({ page, req
 
   await page.leads.openLeadModal()
   await page.leads.submitLeadForm(payload)
-  await page.components.toastHaveText('O endereço de e-mail fornecido já está registrado em nossa fila de espera.')
+  await page.components.popUpContainText('Verificamos que o endereço de e-mail fornecido já consta em nossa lista de espera.')
 })
 
 test('não deve cadastrar um lead com email inválido', async ({ page }) => {

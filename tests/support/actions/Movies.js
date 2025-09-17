@@ -37,4 +37,21 @@ export class Movies {
 
     await this.submitMovie()
   }
+
+  async remove(payload) {
+    await this.page.getByRole('row', { name: payload.title }).getByRole('button').click()
+
+    await this.page.click('.confirm-removal')
+  }
+
+  async search(target) {
+    await this.page.getByPlaceholder('Busque pelo nome').fill(target)
+
+    await this.page.click('.actions button')
+  }
+
+  async tableHave(content) {
+    const rows = this.page.getByRole('row')
+    await expect(rows).toContainText(content)
+  }
 }

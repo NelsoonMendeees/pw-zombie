@@ -17,7 +17,7 @@ test('não deve logar com senha incorreta', async ({ page }) => {
   await page.login.visit()
   await page.login.submitLogin({ ...payload, password: 'pwd12345' })
   const text = 'Por favor, verifique suas credenciais e tente novamente.'
-  await page.components.toastHaveText(text)
+  await page.components.popUpContainText(text)
 })
 
 test('não deve logar quando o email não é informado', async ({ page }) => {
